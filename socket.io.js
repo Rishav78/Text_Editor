@@ -19,7 +19,6 @@ module.exports = server => {
             const { id } = socket;
             lock.user = id;
             lock.lock = true;
-            console.log(lock)
             socket.broadcast.emit('update-state', { editable: false });
             cb({ success: true });
         });
@@ -39,7 +38,7 @@ module.exports = server => {
             const { id } = socket;
             const { user, lock:l } = lock;
             if( l ) {
-                if( user === id) {
+                if( user === id ) {
                     socket.broadcast.emit('update-text', { text });
                 }
             }
@@ -49,7 +48,7 @@ module.exports = server => {
         socket.on('disconnect', () => {
             const { lock:l, user } = lock;
             const { id } = socket;
-            if( l && user !== id ) {
+            if( l && user === id ) {
                 lock.user = null;
                 lock.lock = false;
                 socket.broadcast.emit('update-state', { editable: true });

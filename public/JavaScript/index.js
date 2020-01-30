@@ -13,7 +13,6 @@ socket.on('update-text', ({ text }) => {
 
 socket.emit('new-connection', {}, ({editable}) => {
     editor.disabled = !editable;
-
 });
 
 editor.onfocus = (e) => {
