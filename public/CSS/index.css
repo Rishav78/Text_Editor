@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+}
+textarea {
+    font-size: 20px;
+    width: 500px;
+    height: 500px;
+    box-shadow: 1px 1px 10px #333;
+    font-family: sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    padding: 15px 10px;
+    resize: none;
+}
