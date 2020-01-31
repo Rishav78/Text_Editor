@@ -1,15 +1,15 @@
 const SocketIO = require('socket.io');
 
 module.exports = server => {
-    const lock = { user: null, lock: false };
+    const lock = { user: null, lock: false, text: '' };
     const io = SocketIO(server);
 
     io.on('connection', socket => {
         console.log('connected');
 
         socket.on('new-connection', (data, cb) => {
-            const { lock:editable } = lock
-            cb({ editable: !editable });
+            const { lock:editable, text } = lock
+            cb({ editable: !editable, text });
         })
 
         socket.on('lock-state', (data, cb) => {
@@ -39,10 +39,10 @@ module.exports = server => {
             const { user, lock:l } = lock;
             if( l ) {
                 if( user === id ) {
+                    lock.text = text;
                     socket.broadcast.emit('update-text', { text });
                 }
             }
-
         });
 
         socket.on('disconnect', () => {

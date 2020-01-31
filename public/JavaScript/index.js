@@ -2,17 +2,16 @@ const socket = io();
 const editor = document.querySelector('#editor');
 
 socket.on('update-state', ({ editable }) => {
-    console.log(editable)
     editor.disabled = !editable;
 });
 
 socket.on('update-text', ({ text }) => {
-    console.log(text)
     editor.value = text;
 })
 
-socket.emit('new-connection', {}, ({editable}) => {
+socket.emit('new-connection', {}, ({editable, text}) => {
     editor.disabled = !editable;
+    editor.value = text;
 });
 
 editor.onfocus = (e) => {
